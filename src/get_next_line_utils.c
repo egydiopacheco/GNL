@@ -6,11 +6,17 @@
 /*   By: epacheco <epacheco@student.42sp.org.       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/22 19:02:13 by epacheco          #+#    #+#             */
-/*   Updated: 2021/10/12 06:14:37 by epacheco         ###   ########.fr       */
+/*   Updated: 2021/10/31 14:41:01 by epacheco         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+/*
+ * Given a string S, search for C
+ * If found, return the pointer position of C in S
+ * Otherwise return NULL.
+ */
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -25,10 +31,15 @@ char	*ft_strchr(const char *s, int c)
 			return (p);
 		p++;
 	}
-	if (c == '\0')
+	if (c == NULL_BYTE)
 		return (p);
 	return (NULL);
 }
+
+/*
+ * Copy the content of source into destiny, with a fixed 
+ * buffer size.
+ */
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 {
@@ -39,19 +50,23 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	i = 0;
 	if (dstsize > 0)
 	{
-		while (src[i] != '\0' && i < dstsize - 1)
+		while (*(src + i) != NULL_BYTE && i < dstsize - 1)
 		{
-			dst[i] = src[i];
+			*(dst + i) = *(src + i);
 			i++;
 		}
-		dst[i] = '\0';
+		*(dst + i) = NULL_BYTE;
 	}
-	while (src[i] != '\0')
-	{
+	while (*(src + i) != NULL_BYTE)
 		i++;
-	}
 	return (i);
 }
+
+/*
+ * Given a string s, synthetize a substring that
+ * begins on the integer (start) position of the s array.
+ * Substring is limited the len size.
+ */
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
@@ -76,6 +91,12 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	return (substr);
 }
 
+/*
+ * Given two strings s1 and 2, allocate memory
+ * to concatenate s2 at the end of s1.
+ * Null terminate the the string.
+ */
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*str;
@@ -93,9 +114,14 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	ft_strlcpy(str, s1, size1 + 1);
 	ft_strlcpy(&*(str + size1), s2, size2 + 1);
-	*(str + size1 + size2) = '\0';
+	*(str + size1 + size2) = NULL_BYTE;
 	return (str);
 }
+
+/*
+ * Given a string s, allocate memory for a copy of s.
+ * Return the duplicated pointer
+ */
 
 char	*ft_strdup(const char *s)
 {
